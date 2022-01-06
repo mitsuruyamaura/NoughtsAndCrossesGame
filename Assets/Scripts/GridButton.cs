@@ -6,29 +6,42 @@ using UnityEngine.UI;
 public class GridButton : MonoBehaviour {
 
     //public int[,] gridNo = new int[1, 1];
-    public Button btnGrid;
-    public Text txtGridOwnerIcon;
-    public GridOwnerType currentGridOwnerType;
 
-    public int gridNo;
+    [SerializeField]
+    private Button btnGrid;
+
+    [SerializeField]
+    private Text txtGridOwnerIcon;
+
+    [SerializeField]
+    private GridOwnerType currentGridOwnerType;
+
+    public GridOwnerType CurrentGridOwnerType
+    {
+        get => currentGridOwnerType;
+        set => currentGridOwnerType = value;
+    }
+
+    private int gridNo;
     private GameManager gameManager;
 
-    public void SetUpPiecePlace(int no, GameManager gameManager) {
+    /// <summary>
+    /// Grid の初期設定
+    /// </summary>
+    /// <param name="no"></param>
+    /// <param name="gameManager"></param>
+    public void SetUpGrid(int no, GameManager gameManager) {
         gridNo = no;
         this.gameManager = gameManager;
         btnGrid.onClick.AddListener(() => gameManager.OnClickGrid(gridNo));
-        Initialized();
-    }
-
-    public GridOwnerType GetCurrentGridOwnerType() {
-        return currentGridOwnerType;
+        UpdateGridData(GridOwnerType.None, string.Empty);
     }
 
     /// <summary>
-    /// Gird の初期化
+    /// Gird の情報更新(オーナーのセット、および初期化に利用する)
     /// </summary>
-    public void Initialized() {
-        currentGridOwnerType = GridOwnerType.None;
-        txtGridOwnerIcon.text = "";
+    public void UpdateGridData(GridOwnerType newGridOwnerType, string ownerSymbol) {
+        currentGridOwnerType = newGridOwnerType;
+        txtGridOwnerIcon.text = ownerSymbol;
     }
 }
