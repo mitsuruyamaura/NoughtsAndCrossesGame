@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+//using UnityEngine.UI;
+using UniRx;
 
 // 参考
 // https://yuzame-gohan.com/marubatsu/
@@ -10,11 +11,11 @@ public class GameManager : MonoBehaviour {
 
     //public int[,] piecePlaces = new int[3, 3];
 
-    [SerializeField]
-    private Text txtPlayerResult;
+    //[SerializeField]
+    //private Text txtPlayerResult;
 
-    [SerializeField]
-    private Text txtOpponentResult;
+    //[SerializeField]
+    //private Text txtOpponentResult;
 
     [SerializeField]
     private GridButton[] grids = new GridButton[9];
@@ -28,25 +29,41 @@ public class GameManager : MonoBehaviour {
     [SerializeField]
     private bool isGameUp;
     
-    [SerializeField]
-    private Button btnRestart;
+    //[SerializeField]
+    //private Button btnRestart;
 
-    [SerializeField]
-    private int winCount;
+    //[SerializeField]
+    //private int winCount;
     
-    [SerializeField]
-    private int loseCount;
+    //[SerializeField]
+    //private int loseCount;
 
-    [SerializeField]
-    private Text txtWinCount;
+    //[SerializeField]
+    //private Text txtWinCount;
     
-    [SerializeField]
-    private Text txtLoseCount;
+    //[SerializeField]
+    //private Text txtLoseCount;
 
-    [SerializeField]
-    private Text txtInfo;
+    //[SerializeField]
+    //private Text txtInfo;
 
     private int putCount;
+
+
+    public ReactiveDictionary<GridOwnerType, int> WinCount = new ReactiveDictionary<GridOwnerType, int>();
+
+    public ReactiveProperty<string> PlayerResultMessage = new ReactiveProperty<string>();
+    public ReactiveProperty<string> OpponentResultMessage = new ReactiveProperty<string>();
+    public ReactiveProperty<string> InfoMessage = new ReactiveProperty<string>();
+
+    [SerializeField]
+    private Result_View playerResultView;
+
+    [SerializeField]
+    private Result_View opponentResultView;
+
+    [SerializeField]
+    private Info_View infoView;
 
 
     void Start() {
@@ -78,12 +95,23 @@ public class GameManager : MonoBehaviour {
             Debug.Log(i);
         }
 
-        btnRestart.onClick.AddListener(OnClickRestart);
+        //btnRestart.onClick.AddListener(OnClickRestart);
 
-        winCount = 0;
-        loseCount = 0;
-        txtWinCount.text = winCount.ToString();
-        txtLoseCount.text = loseCount.ToString();
+        //winCount = 0;
+        //loseCount = 0;
+        //txtWinCount.text = winCount.ToString();
+        //txtLoseCount.text = loseCount.ToString();
+
+        WinCount.Add(GridOwnerType.Player, 0);
+        WinCount.Add(GridOwnerType.Opponent, 0);
+
+        playerResultView.SetUpResultView(this);
+        opponentResultView.SetUpResultView(this);
+
+        WinCount[GridOwnerType.Player] = 0;
+        WinCount[GridOwnerType.Opponent] = 0;
+
+        infoView.SetUpinfoView(this);
     }
 
     /// <summary>
@@ -91,10 +119,15 @@ public class GameManager : MonoBehaviour {
     /// </summary>
     private void ResetGameParameters() {
         isGameUp = false;
-        btnRestart.interactable = false;
+        infoView.SwitchActivateButton(false);
+        
+        //btnRestart.interactable = false;
 
-        txtPlayerResult.text = "";
-        txtOpponentResult.text = "";
+        PlayerResultMessage.Value = string.Empty;
+        OpponentResultMessage.Value = string.Empty;
+
+        //txtPlayerResult.text = "";
+        //txtOpponentResult.text = "";
         putCount = 0;
     }
 
@@ -111,7 +144,9 @@ public class GameManager : MonoBehaviour {
         // ○×が置けるか確認
         if (grids[no].CurrentGridOwnerType == GridOwnerType.None) {
 
-            txtInfo.text = "";
+            //txtInfo.text = "";
+
+            InfoMessage.Value = string.Empty;
 
             // ○×をセット
             SetOwnerTypeOnGrid(grids[no], GridOwnerType.Player);
@@ -127,7 +162,9 @@ public class GameManager : MonoBehaviour {
             // 敵の順番
             PutOpponentGrid();
         } else {
-            txtInfo.text = "そこには配置出来ません。";
+            //txtInfo.text = "そこには配置出来ません。";
+
+            InfoMessage.Value = "そこには配置出来ません。";
         }
     }
 
@@ -244,28 +281,42 @@ public class GameManager : MonoBehaviour {
     /// <param name="winner"></param>
     private void ShowResult(GridOwnerType winner) {
         isGameUp = true;
-        btnRestart.interactable = true;
+        infoView.SwitchActivateButton(true); 
+        
+        //btnRestart.interactable = true;
 
         if (winner == GridOwnerType.Player) {
-            txtPlayerResult.text = "Win!";
-            txtOpponentResult.text = "Lose...";
-            winCount++;
-            txtWinCount.text = winCount.ToString();
+            //txtPlayerResult.text = "Win!";
+            //txtOpponentResult.text = "Lose...";
+            //winCount++;
+            //txtWinCount.text = winCount.ToString();
+
+            PlayerResultMessage.Value = "Win!";
+            OpponentResultMessage.Value = "Lose...";
+            WinCount[GridOwnerType.Player]++;
         } else if (winner == GridOwnerType.Opponent) {
-            txtPlayerResult.text = "Lose...";
-            txtOpponentResult.text = "Win!";
-            loseCount++;
-            txtLoseCount.text = loseCount.ToString();
+            //txtPlayerResult.text = "Lose...";
+            //txtOpponentResult.text = "Win!";
+            //loseCount++;
+            //txtLoseCount.text = loseCount.ToString();
+
+            PlayerResultMessage.Value = "Lose...";
+            OpponentResultMessage.Value = "Win!";
+            WinCount[GridOwnerType.Opponent]++;
+
         } else {
-            txtPlayerResult.text = "Draw";
-            txtOpponentResult.text = "Draw";
+            //txtPlayerResult.text = "Draw";
+            //txtOpponentResult.text = "Draw";
+
+            PlayerResultMessage.Value = "Draw";
+            OpponentResultMessage.Value = "Draw";
         }
     }
 
     /// <summary>
     /// 次のゲームを再開する準備
     /// </summary>
-    private void OnClickRestart() {
+    public void Restart() {
         // 各種設定を初期化
         for (int i = 0; i < grids.Length; i++) {
             grids[i].UpdateGridData(GridOwnerType.None, string.Empty);
