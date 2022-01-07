@@ -56,6 +56,7 @@ public class GameManager : MonoBehaviour {
     public ReactiveProperty<string> OpponentResultMessage = new ReactiveProperty<string>();
     public ReactiveProperty<string> InfoMessage = new ReactiveProperty<string>();
 
+    // Presenter
     [SerializeField]
     private Result_View playerResultView;
 
@@ -64,6 +65,9 @@ public class GameManager : MonoBehaviour {
 
     [SerializeField]
     private Info_View infoView;
+
+    [SerializeField]
+    private Info_Model infoModel;
 
 
     void Start() {
@@ -111,7 +115,7 @@ public class GameManager : MonoBehaviour {
         WinCount[GridOwnerType.Player] = 0;
         WinCount[GridOwnerType.Opponent] = 0;
 
-        infoView.SetUpinfoView(this);
+        InfoMessage.Subscribe(x => infoView.UpdateDispayInfo(x));
     }
 
     /// <summary>
@@ -119,7 +123,7 @@ public class GameManager : MonoBehaviour {
     /// </summary>
     private void ResetGameParameters() {
         isGameUp = false;
-        infoView.SwitchActivateButton(false);
+        infoModel.SwitchActivateButton(false);
         
         //btnRestart.interactable = false;
 
@@ -281,7 +285,7 @@ public class GameManager : MonoBehaviour {
     /// <param name="winner"></param>
     private void ShowResult(GridOwnerType winner) {
         isGameUp = true;
-        infoView.SwitchActivateButton(true); 
+        infoModel.SwitchActivateButton(true); 
         
         //btnRestart.interactable = true;
 
