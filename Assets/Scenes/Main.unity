@@ -198,6 +198,58 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 28544919}
   m_CullTransparentMesh: 1
+--- !u!1 &108291467
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 108291469}
+  - component: {fileID: 108291468}
+  m_Layer: 5
+  m_Name: Info_View
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &108291468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 108291467}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a3441a92045ffb4ea288123466fbea5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  btnRestart: {fileID: 1209508505}
+  txtInfo: {fileID: 1141861076}
+--- !u!224 &108291469
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 108291467}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1209508502}
+  - {fileID: 1141861075}
+  m_Father: {fileID: 494302182}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &163402945
 GameObject:
   m_ObjectHideFlags: 0
@@ -377,18 +429,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc060c7cad4e9b040b7abc745b25405a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  txtPlayerResult: {fileID: 1817769977}
-  txtOpponentResult: {fileID: 1650813132}
   grids: []
   gridSetTran: {fileID: 1409945615}
   gridPrefab: {fileID: 8830129537777407867, guid: 9f798ad3e33921e4abf25fd96bdbb869, type: 3}
   isGameUp: 0
-  btnRestart: {fileID: 1209508505}
-  winCount: 0
-  loseCount: 0
-  txtWinCount: {fileID: 656933626}
-  txtLoseCount: {fileID: 505616264}
-  txtInfo: {fileID: 1141861076}
+  PlayerResultMessage:
+    value: 
+  OpponentResultMessage:
+    value: 
+  InfoMessage:
+    value: 
+  playerResultView: {fileID: 1471287705}
+  opponentResultView: {fileID: 1640159597}
+  infoView: {fileID: 108291468}
 --- !u!4 &169900322
 Transform:
   m_ObjectHideFlags: 0
@@ -504,8 +557,7 @@ RectTransform:
   - {fileID: 1409945615}
   - {fileID: 1471287704}
   - {fileID: 1640159596}
-  - {fileID: 1209508502}
-  - {fileID: 1141861075}
+  - {fileID: 108291469}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -587,7 +639,7 @@ GameObject:
   - component: {fileID: 505616265}
   - component: {fileID: 505616264}
   m_Layer: 5
-  m_Name: txtLoseCount
+  m_Name: txtWinCount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -934,16 +986,16 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1141861074}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 494302182}
-  m_RootOrder: 6
+  m_Father: {fileID: 108291469}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -158}
+  m_AnchoredPosition: {x: 0, y: 513.14825}
   m_SizeDelta: {x: 840, y: 140}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1141861076
@@ -1014,13 +1066,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1209508501}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2105863451}
-  m_Father: {fileID: 494302182}
-  m_RootOrder: 5
+  m_Father: {fileID: 108291469}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1253,8 +1305,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1471287704}
+  - component: {fileID: 1471287705}
   m_Layer: 5
-  m_Name: Player
+  m_Name: Player_View
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1283,6 +1336,21 @@ RectTransform:
   m_AnchoredPosition: {x: 500, y: 0}
   m_SizeDelta: {x: 250, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1471287705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1471287703}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 019c5f2ceac5f63489de7d03b29907aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  txtResultMessage: {fileID: 1817769977}
+  txtWinCount: {fileID: 656933626}
+  gridOwnerType: 1
 --- !u!1 &1640159595
 GameObject:
   m_ObjectHideFlags: 0
@@ -1292,8 +1360,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1640159596}
+  - component: {fileID: 1640159597}
   m_Layer: 5
-  m_Name: Opponent
+  m_Name: Opponent_View
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1322,6 +1391,21 @@ RectTransform:
   m_AnchoredPosition: {x: -500, y: 0}
   m_SizeDelta: {x: 250, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1640159597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1640159595}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 019c5f2ceac5f63489de7d03b29907aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  txtResultMessage: {fileID: 1650813132}
+  txtWinCount: {fileID: 505616264}
+  gridOwnerType: 2
 --- !u!1 &1650813129
 GameObject:
   m_ObjectHideFlags: 0
@@ -1334,7 +1418,7 @@ GameObject:
   - component: {fileID: 1650813131}
   - component: {fileID: 1650813132}
   m_Layer: 5
-  m_Name: txtOpponentResult
+  m_Name: txtResultMessage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1413,7 +1497,7 @@ GameObject:
   - component: {fileID: 1817769976}
   - component: {fileID: 1817769977}
   m_Layer: 5
-  m_Name: txtPlayerResult
+  m_Name: txtResultMessage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
