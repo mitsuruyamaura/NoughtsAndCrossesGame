@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using UniRx;
 
+/// <summary>
+/// View
+/// </summary>
 public class GridButton : MonoBehaviour {
 
     //public int[,] gridNo = new int[1, 1];
@@ -24,7 +27,6 @@ public class GridButton : MonoBehaviour {
     }
 
     private int gridNo;
-    private GameManager gameManager;
 
     /// <summary>
     /// Grid ‚Ì‰Šúİ’è
@@ -33,8 +35,9 @@ public class GridButton : MonoBehaviour {
     /// <param name="gameManager"></param>
     public void SetUpGrid(int no, GameManager gameManager) {
         gridNo = no;
-        this.gameManager = gameManager;
-        btnGrid.onClick.AddListener(() => gameManager.OnClickGrid(gridNo));
+        
+        // Presenter ‚ÉˆÏ‘õ‚·‚×‚«
+        btnGrid.OnClickAsObservable().Subscribe(_ => gameManager.OnClickGrid(gridNo));
         UpdateGridData(GridOwnerType.None, string.Empty);
     }
 
