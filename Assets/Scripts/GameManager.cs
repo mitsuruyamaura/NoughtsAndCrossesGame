@@ -7,6 +7,9 @@ using UniRx;
 // éQçl
 // https://yuzame-gohan.com/marubatsu/
 
+// MVP + UniRX
+// https://takap-tech.com/entry/2021/11/27/195909
+
 public class GameManager : MonoBehaviour {
 
     //public int[,] piecePlaces = new int[3, 3];
