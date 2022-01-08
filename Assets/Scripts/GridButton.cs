@@ -35,6 +35,8 @@ public class GridButton : MonoBehaviour {
     /// <param name="gameManager"></param>
     public void SetUpGrid(int no, GameManager gameManager) {
         gridNo = no;
+        
+        // Presenter ‚ÉˆÏ‘õ‚·‚×‚«
         btnGrid.OnClickAsObservable().Subscribe(_ => gameManager.OnClickGrid(gridNo));
         UpdateGridData(GridOwnerType.None, string.Empty);
     }

@@ -439,8 +439,6 @@ MonoBehaviour:
     value: 
   IsGameUp:
     value: 0
-  playerResultView: {fileID: 1471287705}
-  opponentResultView: {fileID: 1640159597}
 --- !u!4 &169900322
 Transform:
   m_ObjectHideFlags: 0
@@ -1382,6 +1380,11 @@ MonoBehaviour:
   btnRestart: {fileID: 1209508505}
   model: {fileID: 169900321}
   infoView: {fileID: 108291468}
+  resultViews:
+  - {fileID: 1471287705}
+  - {fileID: 1640159597}
+  playerResultView: {fileID: 1471287705}
+  opponentResultView: {fileID: 1640159597}
 --- !u!4 &1492020779
 Transform:
   m_ObjectHideFlags: 0

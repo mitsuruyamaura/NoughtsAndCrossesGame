@@ -64,12 +64,6 @@ public class GameManager : MonoBehaviour {
     public ReactiveProperty<string> InfoMessage = new ReactiveProperty<string>();
     public ReactiveProperty<bool> IsGameUp = new ReactiveProperty<bool>();
 
-    [SerializeField]
-    private Result_View playerResultView;
-
-    [SerializeField]
-    private Result_View opponentResultView;
-
 
     public void SetUpModel() {
 
@@ -90,14 +84,14 @@ public class GameManager : MonoBehaviour {
     /// <summary>
     /// ゲームの初期設定
     /// </summary>
-    private void InitialSettings() {
+    public void InitialSettings() {
         grids = new GridButton[9];
 
         // ボタンの文字の初期設定
         for (int i = 0; i < grids.Length; i++) {
             grids[i] = Instantiate(gridPrefab, gridSetTran, false);
             grids[i].SetUpGrid(i, this);
-            Debug.Log(i);
+            //Debug.Log(i);
         }
 
         //btnRestart.onClick.AddListener(OnClickRestart);
@@ -110,9 +104,12 @@ public class GameManager : MonoBehaviour {
         WinCount.Add(GridOwnerType.Player, 0);
         WinCount.Add(GridOwnerType.Opponent, 0);
 
-        playerResultView.SetUpResultView(this);
-        opponentResultView.SetUpResultView(this);
+        //playerResultView.SetUpResultView(this);
+        //opponentResultView.SetUpResultView(this);
+    }
 
+
+    public void InitWinCount() {
         WinCount[GridOwnerType.Player] = 0;
         WinCount[GridOwnerType.Opponent] = 0;
     }
@@ -120,7 +117,7 @@ public class GameManager : MonoBehaviour {
     /// <summary>
     /// ゲームに利用する情報の初期化
     /// </summary>
-    private void ResetGameParameters() {
+    public void ResetGameParameters() {
         //isGameUp = false;
         //infoModel.SwitchActivateButton(false);
 
