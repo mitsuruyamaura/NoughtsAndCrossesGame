@@ -10,6 +10,10 @@ using UniRx;
 // MVP + UniRX
 // https://takap-tech.com/entry/2021/11/27/195909
 
+
+/// <summary>
+/// Model
+/// </summary>
 public class GameManager : MonoBehaviour {
 
     //public int[,] piecePlaces = new int[3, 3];
@@ -29,8 +33,8 @@ public class GameManager : MonoBehaviour {
     [SerializeField]
     private GridButton gridPrefab;
 
-    [SerializeField]
-    private bool isGameUp;
+    //[SerializeField]
+    //private bool isGameUp;
     
     //[SerializeField]
     //private Button btnRestart;
@@ -52,28 +56,22 @@ public class GameManager : MonoBehaviour {
 
     private int putCount;
 
-
+    // Model
     public ReactiveDictionary<GridOwnerType, int> WinCount = new ReactiveDictionary<GridOwnerType, int>();
 
     public ReactiveProperty<string> PlayerResultMessage = new ReactiveProperty<string>();
     public ReactiveProperty<string> OpponentResultMessage = new ReactiveProperty<string>();
     public ReactiveProperty<string> InfoMessage = new ReactiveProperty<string>();
+    public ReactiveProperty<bool> IsGameUp = new ReactiveProperty<bool>();
 
-    // Presenter
     [SerializeField]
     private Result_View playerResultView;
 
     [SerializeField]
     private Result_View opponentResultView;
 
-    [SerializeField]
-    private Info_View infoView;
 
-    [SerializeField]
-    private Info_Model infoModel;
-
-
-    void Start() {
+    public void SetUpModel() {
 
         //// piecePlaces 初期値設定
         //for (int i = 0; i < 3; i++) {
@@ -117,18 +115,18 @@ public class GameManager : MonoBehaviour {
 
         WinCount[GridOwnerType.Player] = 0;
         WinCount[GridOwnerType.Opponent] = 0;
-
-        InfoMessage.Subscribe(x => infoView.UpdateDispayInfo(x));
     }
 
     /// <summary>
     /// ゲームに利用する情報の初期化
     /// </summary>
     private void ResetGameParameters() {
-        isGameUp = false;
-        infoModel.SwitchActivateButton(false);
-        
+        //isGameUp = false;
+        //infoModel.SwitchActivateButton(false);
+
         //btnRestart.interactable = false;
+
+        IsGameUp.Value = false;
 
         PlayerResultMessage.Value = string.Empty;
         OpponentResultMessage.Value = string.Empty;
@@ -142,7 +140,7 @@ public class GameManager : MonoBehaviour {
     /// Player がボタンをクリックした際の処理
     /// </summary>
     public void OnClickGrid(int no) {
-        if (isGameUp) {
+        if (IsGameUp.Value) {
             return;
         }
 
@@ -161,7 +159,7 @@ public class GameManager : MonoBehaviour {
             putCount++;
 
             // 勝負付かず引き分け
-            if (putCount >= 5 && !isGameUp) {
+            if (putCount >= 5 && !IsGameUp.Value) {
                 ShowResult(GridOwnerType.Draw);
                 return;
             }
@@ -193,7 +191,7 @@ public class GameManager : MonoBehaviour {
     /// </summary>
     private void PutOpponentGrid() {
         
-        while (!isGameUp) {
+        while (!IsGameUp.Value) {
             int randomPieceIndex = Random.Range(0, grids.Length);
             if (grids[randomPieceIndex].CurrentGridOwnerType == GridOwnerType.None) {
                 SetOwnerTypeOnGrid(grids[randomPieceIndex], GridOwnerType.Opponent);
@@ -287,10 +285,12 @@ public class GameManager : MonoBehaviour {
     /// </summary>
     /// <param name="winner"></param>
     private void ShowResult(GridOwnerType winner) {
-        isGameUp = true;
-        infoModel.SwitchActivateButton(true); 
-        
+        //isGameUp = true;
+        //infoModel.SwitchActivateButton(true); 
+
         //btnRestart.interactable = true;
+
+        IsGameUp.Value = true;
 
         if (winner == GridOwnerType.Player) {
             //txtPlayerResult.text = "Win!";

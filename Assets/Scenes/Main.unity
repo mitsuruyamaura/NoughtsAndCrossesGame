@@ -227,7 +227,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a3441a92045ffb4ea288123466fbea5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  btnRestart: {fileID: 1209508505}
   txtInfo: {fileID: 1141861076}
 --- !u!224 &108291469
 RectTransform:
@@ -411,7 +410,7 @@ GameObject:
   - component: {fileID: 169900322}
   - component: {fileID: 169900321}
   m_Layer: 0
-  m_Name: GameManager
+  m_Name: GameManager_Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -432,16 +431,16 @@ MonoBehaviour:
   grids: []
   gridSetTran: {fileID: 1409945615}
   gridPrefab: {fileID: 8830129537777407867, guid: 9f798ad3e33921e4abf25fd96bdbb869, type: 3}
-  isGameUp: 0
   PlayerResultMessage:
     value: 
   OpponentResultMessage:
     value: 
   InfoMessage:
     value: 
+  IsGameUp:
+    value: 0
   playerResultView: {fileID: 1471287705}
   opponentResultView: {fileID: 1640159597}
-  infoView: {fileID: 108291468}
 --- !u!4 &169900322
 Transform:
   m_ObjectHideFlags: 0
@@ -1351,6 +1350,52 @@ MonoBehaviour:
   txtResultMessage: {fileID: 1817769977}
   txtWinCount: {fileID: 656933626}
   gridOwnerType: 1
+--- !u!1 &1492020777
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1492020779}
+  - component: {fileID: 1492020778}
+  m_Layer: 0
+  m_Name: Presenter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1492020778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1492020777}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 895dd7e4995abb94ea92a837d2f3e607, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  btnRestart: {fileID: 1209508505}
+  model: {fileID: 169900321}
+  infoView: {fileID: 108291468}
+--- !u!4 &1492020779
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1492020777}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1640159595
 GameObject:
   m_ObjectHideFlags: 0
