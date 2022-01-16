@@ -11,7 +11,7 @@ public class Presenter : MonoBehaviour
     private Button btnRestart;
 
     [SerializeField]
-    private GameManager model;
+    private MainGame_Model model;
 
     [SerializeField]
     private Info_View infoView;
@@ -19,15 +19,20 @@ public class Presenter : MonoBehaviour
     [SerializeField]
     private Result_View[] resultViews;
 
+    [SerializeField, HideInInspector]
+    private Grid_View[] gridViews;
+
 
     void Start()
     {
-        model.InitialSettings();
+        // ゲームの初期設定を行い、Grid_View の情報を配列で受け取る
+        gridViews = model.InitialSettings();
 
+        // リスタートボタンと InfoView の設定
         SetUpRestartButtonAndInfoView();
 
         /// <summary>
-        /// 
+        /// リスタートボタンと InfoView の設定
         /// </summary>
         void SetUpRestartButtonAndInfoView() {
 
@@ -41,10 +46,11 @@ public class Presenter : MonoBehaviour
             model.IsGameUp.Subscribe(x => btnRestart.interactable = x);
         }
 
+        // ResultView の設定
         SetUpResultView();
 
         /// <summary>
-        /// 
+        /// ResultView の設定
         /// </summary>
         void SetUpResultView() {
 
@@ -72,7 +78,25 @@ public class Presenter : MonoBehaviour
             }
         }
 
+        // 勝利数の初期化、ゲーム情報の初期化
         model.InitWinCount();
         model.ResetGameParameters();
+
+        // GridOwnerType を購読し、Text を更新する
+        for (int i =0; i < model.gridModelList.Count; i++) {
+            int index = i;
+
+            // 各 Grid ボタンの購読を行い、クリック(タップ)入力を受付
+            gridViews[index].GetGridButton().OnClickAsObservable()
+                .ThrottleFirst(TimeSpan.FromSeconds(1.0f))
+                .Select(_ => model.gridModelList[index].GridNo)　　// Subscribe の引数用にストリームの情報を gridNo に置き換える 
+                .Subscribe(x => model.OnClickGrid(x))              // x は gridNo
+                .AddTo(this);
+
+            // 各 Grid_Model のオーナー情報を購読し、更新された際には画面表示を更新する
+            model.gridModelList[index].CurrentGridOwnerType
+                .Subscribe(x => gridViews[index].UpdateGridOwnerSymbol(x == GridOwnerType.Player ? "〇" : x == GridOwnerType.Opponent ? "×" : string.Empty))
+                .AddTo(this);
+        }
     }
 }
