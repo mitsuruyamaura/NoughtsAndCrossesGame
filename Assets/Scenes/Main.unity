@@ -410,7 +410,7 @@ GameObject:
   - component: {fileID: 169900322}
   - component: {fileID: 169900321}
   m_Layer: 0
-  m_Name: GameManager_Model
+  m_Name: GameManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -428,17 +428,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc060c7cad4e9b040b7abc745b25405a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  grids: []
+  txtPlayerResult: {fileID: 1817769977}
+  txtOpponentResult: {fileID: 1650813132}
   gridSetTran: {fileID: 1409945615}
   gridPrefab: {fileID: 8830129537777407867, guid: 9f798ad3e33921e4abf25fd96bdbb869, type: 3}
-  PlayerResultMessage:
-    value: 
-  OpponentResultMessage:
-    value: 
-  InfoMessage:
-    value: 
-  IsGameUp:
-    value: 0
+  grids: []
+  isGameUp: 0
+  btnRestart: {fileID: 1209508505}
+  winCount: 0
+  loseCount: 0
+  txtWinCount: {fileID: 656933626}
+  txtLoseCount: {fileID: 505616264}
+  txtInfo: {fileID: 1141861076}
 --- !u!4 &169900322
 Transform:
   m_ObjectHideFlags: 0
@@ -451,7 +452,39 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &447479709
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 447479710}
+  m_Layer: 0
+  m_Name: MVP_Set
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &447479710
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 447479709}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1492020779}
+  - {fileID: 873309060}
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &452062031
 GameObject:
@@ -517,7 +550,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &494302181
 GameObject:
@@ -556,7 +589,7 @@ RectTransform:
   - {fileID: 1640159596}
   - {fileID: 108291469}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -636,7 +669,7 @@ GameObject:
   - component: {fileID: 505616265}
   - component: {fileID: 505616264}
   m_Layer: 5
-  m_Name: txtWinCount
+  m_Name: txtWinCount_Opponent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -715,7 +748,7 @@ GameObject:
   - component: {fileID: 656933625}
   - component: {fileID: 656933626}
   m_Layer: 5
-  m_Name: txtWinCount
+  m_Name: txtWinCount_Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -873,8 +906,62 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &873309059
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 873309060}
+  - component: {fileID: 873309061}
+  m_Layer: 0
+  m_Name: MainGame_Model
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &873309060
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 873309059}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 447479710}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &873309061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 873309059}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b7e8384c131ccc458a7d9c06e16a492, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gridSetTran: {fileID: 1409945615}
+  gridModelPrefab: {fileID: 3459983121464828930, guid: a6cb8e4e6e371484bb9b30706191639e, type: 3}
+  gridModelList: []
+  PlayerResultMessage:
+    value: 
+  OpponentResultMessage:
+    value: 
+  InfoMessage:
+    value: 
+  IsGameUp:
+    value: 0
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -1209,7 +1296,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -1347,7 +1434,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   txtResultMessage: {fileID: 1817769977}
   txtWinCount: {fileID: 656933626}
-  gridOwnerType: 1
 --- !u!1 &1492020777
 GameObject:
   m_ObjectHideFlags: 0
@@ -1378,13 +1464,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   btnRestart: {fileID: 1209508505}
-  model: {fileID: 169900321}
+  model: {fileID: 873309061}
   infoView: {fileID: 108291468}
   resultViews:
   - {fileID: 1471287705}
   - {fileID: 1640159597}
-  playerResultView: {fileID: 1471287705}
-  opponentResultView: {fileID: 1640159597}
+  gridViews: []
 --- !u!4 &1492020779
 Transform:
   m_ObjectHideFlags: 0
@@ -1392,12 +1477,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1492020777}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_Father: {fileID: 447479710}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1640159595
 GameObject:
@@ -1453,7 +1538,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   txtResultMessage: {fileID: 1650813132}
   txtWinCount: {fileID: 505616264}
-  gridOwnerType: 2
 --- !u!1 &1650813129
 GameObject:
   m_ObjectHideFlags: 0
@@ -1466,7 +1550,7 @@ GameObject:
   - component: {fileID: 1650813131}
   - component: {fileID: 1650813132}
   m_Layer: 5
-  m_Name: txtResultMessage
+  m_Name: txtResultMessage_Opponent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1545,7 +1629,7 @@ GameObject:
   - component: {fileID: 1817769976}
   - component: {fileID: 1817769977}
   m_Layer: 5
-  m_Name: txtResultMessage
+  m_Name: txtResultMessage_Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
