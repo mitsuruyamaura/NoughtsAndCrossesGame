@@ -4,12 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UniRx;
 
-/// <summary>
-/// View
-/// </summary>
 public class GridButton : MonoBehaviour {
-
-    //public int[,] gridNo = new int[1, 1];
 
     [SerializeField]
     private Button btnGrid;
@@ -29,20 +24,19 @@ public class GridButton : MonoBehaviour {
     private int gridNo;
 
     /// <summary>
-    /// Grid の初期設定
+    /// GridButton の初期設定
     /// </summary>
     /// <param name="no"></param>
     /// <param name="gameManager"></param>
     public void SetUpGrid(int no, GameManager gameManager) {
         gridNo = no;
         
-        // Presenter に委託すべき
-        btnGrid.OnClickAsObservable().Subscribe(_ => gameManager.OnClickGrid(gridNo));
+        btnGrid.onClick.AddListener(() => gameManager.OnClickGrid(gridNo));
         UpdateGridData(GridOwnerType.None, string.Empty);
     }
 
     /// <summary>
-    /// Gird の情報更新(オーナーのセット、および初期化に利用する)
+    /// Gird の情報更新(オーナーシンボル(○×)のセット、および初期化に利用する)
     /// </summary>
     public void UpdateGridData(GridOwnerType newGridOwnerType, string ownerSymbol) {
         currentGridOwnerType = newGridOwnerType;
