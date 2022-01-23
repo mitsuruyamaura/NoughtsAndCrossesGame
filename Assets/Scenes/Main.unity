@@ -214,7 +214,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &108291468
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -428,12 +428,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc060c7cad4e9b040b7abc745b25405a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  txtPlayerResult: {fileID: 1817769977}
-  txtOpponentResult: {fileID: 1650813132}
   gridSetTran: {fileID: 1409945615}
   gridPrefab: {fileID: 8830129537777407867, guid: 9f798ad3e33921e4abf25fd96bdbb869, type: 3}
   grids: []
   isGameUp: 0
+  txtPlayerResult: {fileID: 1817769977}
+  txtOpponentResult: {fileID: 1650813132}
   btnRestart: {fileID: 1209508505}
   winCount: 0
   loseCount: 0
@@ -1396,7 +1396,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1471287704
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1500,7 +1500,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1640159596
 RectTransform:
   m_ObjectHideFlags: 0
