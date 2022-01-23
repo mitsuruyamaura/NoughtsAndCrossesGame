@@ -9,12 +9,6 @@ public class Result_View : MonoBehaviour
     [SerializeField]
     private Text txtWinCount;
 
-    private GridOwnerType gridOwnerType;
-    public GridOwnerType GridOwnerType
-    {
-        get => gridOwnerType;
-        set => gridOwnerType = value;
-    }
 
     /// <summary>
     /// Ÿ—˜”•\¦‚ÌXV
