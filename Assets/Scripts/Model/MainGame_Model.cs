@@ -17,14 +17,11 @@ public class MainGame_Model : MonoBehaviour
     [HideInInspector]
     public List<Grid_Model> gridModelList = new List<Grid_Model>();
 
-    [HideInInspector]
-    public ReactiveDictionary<GridOwnerType, int> WinCount = new ReactiveDictionary<GridOwnerType, int>();
+    //[HideInInspector]
+    //public ReactiveProperty<string> PlayerResultMessage = new ReactiveProperty<string>();
 
-    [HideInInspector]
-    public ReactiveProperty<string> PlayerResultMessage = new ReactiveProperty<string>();
-
-    [HideInInspector]
-    public ReactiveProperty<string> OpponentResultMessage = new ReactiveProperty<string>();
+    //[HideInInspector]
+    //public ReactiveProperty<string> OpponentResultMessage = new ReactiveProperty<string>();
 
     [HideInInspector]
     public ReactiveProperty<string> InfoMessage = new ReactiveProperty<string>();
@@ -35,6 +32,7 @@ public class MainGame_Model : MonoBehaviour
     private int putCount;
     private int gridCount = 9;
 
+    public GridOwnerType winner;
 
     /// <summary>
     /// ÉQÅ[ÉÄÇÃèâä˙ê›íË
@@ -50,8 +48,8 @@ public class MainGame_Model : MonoBehaviour
             gridViewList.Add(gridModel.GetComponent<Grid_View>());
         }
 
-        WinCount.Add(GridOwnerType.Player, 0);
-        WinCount.Add(GridOwnerType.Opponent, 0);
+        //WinCount.Add(GridOwnerType.Player, 0);
+        //WinCount.Add(GridOwnerType.Opponent, 0);
 
         return gridViewList.ToArray();
     }
@@ -60,8 +58,8 @@ public class MainGame_Model : MonoBehaviour
     /// èüóòêîÇÃèâä˙âª
     /// </summary>
     public void InitWinCount() {
-        WinCount[GridOwnerType.Player] = 0;
-        WinCount[GridOwnerType.Opponent] = 0;
+        //WinCount[GridOwnerType.Player] = 0;
+        //WinCount[GridOwnerType.Opponent] = 0;
     }
 
     /// <summary>
@@ -69,10 +67,11 @@ public class MainGame_Model : MonoBehaviour
     /// </summary>
     public void ResetGameParameters() {
 
+        winner = GridOwnerType.None;
         IsGameUp.Value = false;
 
-        PlayerResultMessage.Value = string.Empty;
-        OpponentResultMessage.Value = string.Empty;
+        //PlayerResultMessage.Value = string.Empty;
+        //OpponentResultMessage.Value = string.Empty;
 
         putCount = 0;
     }
@@ -214,20 +213,21 @@ public class MainGame_Model : MonoBehaviour
     /// <param name="winner"></param>
     private void ShowResult(GridOwnerType winner) {
 
+        this.winner = winner;
         IsGameUp.Value = true;
 
-        if (winner == GridOwnerType.Player) {
-            PlayerResultMessage.Value = "Win!";
-            OpponentResultMessage.Value = "Lose...";
-            WinCount[GridOwnerType.Player]++;
-        } else if (winner == GridOwnerType.Opponent) {
-            PlayerResultMessage.Value = "Lose...";
-            OpponentResultMessage.Value = "Win!";
-            WinCount[GridOwnerType.Opponent]++;
-        } else {
-            PlayerResultMessage.Value = "Draw";
-            OpponentResultMessage.Value = "Draw";
-        }
+        //if (winner == GridOwnerType.Player) {
+        //    PlayerResultMessage.Value = "Win!";
+        //    OpponentResultMessage.Value = "Lose...";
+        //    WinCount[GridOwnerType.Player]++;
+        //} else if (winner == GridOwnerType.Opponent) {
+        //    PlayerResultMessage.Value = "Lose...";
+        //    OpponentResultMessage.Value = "Win!";
+        //    WinCount[GridOwnerType.Opponent]++;
+        //} else {
+        //    PlayerResultMessage.Value = "Draw";
+        //    OpponentResultMessage.Value = "Draw";
+        //}
     }
 
     /// <summary>
