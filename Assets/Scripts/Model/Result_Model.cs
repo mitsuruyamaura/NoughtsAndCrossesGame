@@ -7,17 +7,23 @@ public class Result_Model : MonoBehaviour
 {
     //public ReactiveDictionary<GridOwnerType, int> WinInfoData = new ReactiveDictionary<GridOwnerType, int>();
 
-    public GridOwnerType currentGridOwnerType;
-    public ReactiveProperty<int> WinCount = new ReactiveProperty<int>(); 
+    private GridOwnerType currentGridOwnerType;
 
+    /// <summary>
+    /// プロパティ
+    /// </summary>
+    public GridOwnerType CurrentGridOwnerType { get => currentGridOwnerType; set => currentGridOwnerType = value; }
+
+    public ReactiveProperty<int> WinCount = new ReactiveProperty<int>(); 
     public ReactiveProperty<string> ResultMessage = new ReactiveProperty<string>();
 
 
     /// <summary>
-    /// 勝利数の初期化
+    /// Result_Model の初期設定
     /// </summary>
-    public void InitWinCount() {
+    public void SetUpResultModel(GridOwnerType gridOwnerType) {
         WinCount.Value = 0;
+        CurrentGridOwnerType = gridOwnerType;
     }
 
     /// <summary>
@@ -33,7 +39,7 @@ public class Result_Model : MonoBehaviour
     /// <param name="winner"></param>
     public void ShowResult(GridOwnerType winner) {
 
-        if (winner == currentGridOwnerType) {
+        if (winner == CurrentGridOwnerType) {
             ResultMessage.Value = "Win!";
             WinCount.Value++;
         } else if (winner == GridOwnerType.Draw) {

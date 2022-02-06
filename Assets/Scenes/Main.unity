@@ -497,7 +497,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3fec8a30f9bea64aad59e7f90e03205, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentGridOwnerType: 1
   WinCount:
     value: 0
   ResultMessage:
@@ -533,6 +532,7 @@ Transform:
   - {fileID: 873309060}
   - {fileID: 333583483}
   - {fileID: 903940198}
+  - {fileID: 806988874}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -958,6 +958,51 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &806988873
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 806988874}
+  - component: {fileID: 806988875}
+  m_Layer: 0
+  m_Name: Info_Model
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &806988874
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 806988873}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 447479710}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &806988875
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 806988873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3badc34d4c9fe94784803233abafa7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InfoMessage:
+    value: 
 --- !u!1 &873309059
 GameObject:
   m_ObjectHideFlags: 0
@@ -1004,10 +1049,11 @@ MonoBehaviour:
   gridSetTran: {fileID: 1409945615}
   gridModelPrefab: {fileID: 3459983121464828930, guid: a6cb8e4e6e371484bb9b30706191639e, type: 3}
   gridModelList: []
-  InfoMessage:
-    value: 
+  gridPrefab: {fileID: 8830129537777407867, guid: 9f798ad3e33921e4abf25fd96bdbb869, type: 3}
+  grids: []
   IsGameUp:
     value: 0
+  infoModel: {fileID: 806988875}
   winner: 0
 --- !u!1 &903940197
 GameObject:
@@ -1052,7 +1098,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3fec8a30f9bea64aad59e7f90e03205, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentGridOwnerType: 2
   WinCount:
     value: 0
   ResultMessage:
@@ -1558,15 +1603,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 895dd7e4995abb94ea92a837d2f3e607, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  btnRestart: {fileID: 1209508505}
   model: {fileID: 873309061}
-  infoView: {fileID: 108291468}
   resultViews:
   - {fileID: 1471287705}
   - {fileID: 1640159597}
   resultModels:
   - {fileID: 333583484}
   - {fileID: 903940199}
+  infoView: {fileID: 108291468}
+  infoMode: {fileID: 806988875}
+  btnRestart: {fileID: 1209508505}
   gridViews: []
 --- !u!4 &1492020779
 Transform:

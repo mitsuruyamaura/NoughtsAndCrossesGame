@@ -14,8 +14,13 @@ public class MainGame_Model : MonoBehaviour
     [SerializeField]
     private Grid_Model gridModelPrefab;
 
-    [HideInInspector]
     public List<Grid_Model> gridModelList = new List<Grid_Model>();
+
+    [SerializeField, HideInInspector]
+    private GridController gridPrefab;
+
+    [SerializeField, HideInInspector]
+    private GridController[] grids = new GridController[9];
 
     //[HideInInspector]
     //public ReactiveProperty<string> PlayerResultMessage = new ReactiveProperty<string>();
@@ -23,16 +28,20 @@ public class MainGame_Model : MonoBehaviour
     //[HideInInspector]
     //public ReactiveProperty<string> OpponentResultMessage = new ReactiveProperty<string>();
 
-    [HideInInspector]
-    public ReactiveProperty<string> InfoMessage = new ReactiveProperty<string>();
+    //[HideInInspector]
+    //public ReactiveProperty<string> InfoMessage = new ReactiveProperty<string>();
 
-    [HideInInspector]
-    public ReactiveProperty<bool> IsGameUp = new ReactiveProperty<bool>();
+    [SerializeField]
+    private Info_Model infoModel;
 
     private int putCount;
     private int gridCount = 9;
 
     public GridOwnerType winner;
+
+    public ReactiveProperty<bool> IsGameUp = new ReactiveProperty<bool>();
+
+
 
     /// <summary>
     /// ゲームの初期設定
@@ -88,7 +97,7 @@ public class MainGame_Model : MonoBehaviour
 
         // ○が置けるか確認
         if (gridModelList[no].CurrentGridOwnerType.Value == GridOwnerType.None) {
-            InfoMessage.Value = string.Empty;
+            infoModel.UpdateInfoMessage(string.Empty);
 
             // ○をセット
             gridModelList[no].CurrentGridOwnerType.Value = GridOwnerType.Player;
@@ -100,14 +109,15 @@ public class MainGame_Model : MonoBehaviour
 
             // 勝負付かず引き分け
             if (putCount >= 5 && !IsGameUp.Value) {
-                ShowResult(GridOwnerType.Draw);
+                GameUp(GridOwnerType.Draw);
                 return;
             }
 
             // 敵の順番
             PutOpponentGrid();
         } else {
-            InfoMessage.Value = "そこには配置出来ません。";
+            infoModel.UpdateInfoMessage("そこには配置出来ません。");
+            //InfoMessage.Value = "そこには配置出来ません。";
         }
     }
 
@@ -118,6 +128,8 @@ public class MainGame_Model : MonoBehaviour
 
         while (!IsGameUp.Value) {
             int randomPieceIndex = Random.Range(0, gridModelList.Count);
+
+             
             if (gridModelList[randomPieceIndex].CurrentGridOwnerType.Value == GridOwnerType.None) {
                 gridModelList[randomPieceIndex].CurrentGridOwnerType.Value = GridOwnerType.Opponent;
                 // 結果を判定
@@ -153,7 +165,7 @@ public class MainGame_Model : MonoBehaviour
             // 勝者が確定している場合
             if (winner != GridOwnerType.None) {
                 // 結果発表
-                ShowResult(winner);
+                GameUp(winner);
                 return;
             }
         }
@@ -177,7 +189,7 @@ public class MainGame_Model : MonoBehaviour
             // 勝者が確定している場合
             if (winner != GridOwnerType.None) {
                 // 結果発表
-                ShowResult(winner);
+                GameUp(winner);
                 return;
             }
         }
@@ -201,17 +213,17 @@ public class MainGame_Model : MonoBehaviour
             // 勝者が確定している場合
             if (winner != GridOwnerType.None) {
                 // 結果発表
-                ShowResult(winner);
+                GameUp(winner);
                 return;
             }
         }
     }
 
     /// <summary>
-    /// 結果発表
+    /// ゲーム終了
     /// </summary>
     /// <param name="winner"></param>
-    private void ShowResult(GridOwnerType winner) {
+    private void GameUp(GridOwnerType winner) {
 
         this.winner = winner;
         IsGameUp.Value = true;

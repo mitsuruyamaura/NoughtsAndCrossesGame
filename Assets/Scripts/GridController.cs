@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UniRx;
 
-public class GridButton : MonoBehaviour {
+/// <summary>
+/// Grid ゲームオブジェクト制御用クラス
+/// </summary>
+public class GridController : MonoBehaviour {
 
     [SerializeField]
     private Button btnGrid;
@@ -15,6 +17,9 @@ public class GridButton : MonoBehaviour {
     [SerializeField]
     private GridOwnerType currentGridOwnerType;
 
+    /// <summary>
+    /// currentGridOwnerType のプロパティ
+    /// </summary>
     public GridOwnerType CurrentGridOwnerType
     {
         get => currentGridOwnerType;
@@ -33,6 +38,8 @@ public class GridButton : MonoBehaviour {
         
         btnGrid.onClick.AddListener(() => gameManager.OnClickGrid(gridNo));
         UpdateGridData(GridOwnerType.None, string.Empty);
+
+        Debug.Log($"Grid の設定完了: Grid の通し番号 : { no }");
     }
 
     /// <summary>

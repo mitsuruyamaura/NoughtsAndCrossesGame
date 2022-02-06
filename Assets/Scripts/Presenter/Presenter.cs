@@ -8,13 +8,7 @@ using System;
 public class Presenter : MonoBehaviour
 {
     [SerializeField]
-    private Button btnRestart;
-
-    [SerializeField]
     private MainGame_Model model;
-
-    [SerializeField]
-    private Info_View infoView;
 
     [SerializeField]
     private Result_View[] resultViews;
@@ -22,7 +16,16 @@ public class Presenter : MonoBehaviour
     [SerializeField]
     private Result_Model[] resultModels;
 
-    [SerializeField, HideInInspector]
+    [SerializeField]
+    private Info_View infoView;
+
+    [SerializeField]
+    private Info_Model infoMode;
+
+    [SerializeField]
+    private Button btnRestart;
+
+    [SerializeField]
     private Grid_View[] gridViews;
 
 
@@ -42,15 +45,17 @@ public class Presenter : MonoBehaviour
             // View => Model　ボタンを押したら(View)、Model の処理を実行する
             btnRestart.OnClickAsObservable()
                 .ThrottleFirst(TimeSpan.FromSeconds(1.0f))
-                .Subscribe(_ => model.Restart());
+                .Subscribe(_ => model.Restart()).AddTo(gameObject);
 
             // Model => View　メッセージや進行状態(Model)を監視し、それらが更新されたら、View の処理を実行する
-            model.InfoMessage.Subscribe(x => infoView.UpdateDispayInfo(x));
+            //model.InfoMessage.Subscribe(x => infoView.UpdateDispayInfo(x));
+
+            infoMode.InfoMessage.Subscribe(x => infoView.UpdateDispayInfo(x)).AddTo(gameObject);
 
             model.IsGameUp.Subscribe(x => {
                 btnRestart.interactable = x;
-                GameUp(model.winner);
-            });
+                PrepareResult(model.winner);
+            }).AddTo(gameObject);
         }
 
         // ResultView と ResultModel の設定
@@ -70,18 +75,18 @@ public class Presenter : MonoBehaviour
                 int a = i;
 
                 // 勝利数の購読と更新
-                resultModels[a].WinCount.Subscribe(x => resultViews[a].UpdateDisplayWincount(x));
-                resultModels[a].InitWinCount();
+                resultModels[a].WinCount.Subscribe(x => resultViews[a].UpdateDisplayWincount(x)).AddTo(gameObject);
+                resultModels[a].SetUpResultModel((GridOwnerType)a + 1);
 
                 // Dictionary の場合
                 //resultModels[a].WinInfoData.ObserveReplace()
                 //    .Where(x => resultModels[a].WinInfoData.ContainsKey(x.Key))
                 //    .Subscribe((DictionaryReplaceEvent<GridOwnerType, int> result) => resultViews[a].UpdateDisplayWincount(result.NewValue));
-                Debug.Log("購読開始 : " + resultModels[a].currentGridOwnerType.ToString());
+                Debug.Log("購読開始 : " + resultModels[a].CurrentGridOwnerType.ToString());
 
                 // Result_Model の RectiveProperty を購読し、勝敗結果に合わせて画面を更新
-                resultModels[a].ResultMessage.Subscribe(x => resultViews[a].UpdateDisplayResultGame(x));
-                Debug.Log("勝敗結果 購読開始 : " + resultModels[a].currentGridOwnerType.ToString());
+                resultModels[a].ResultMessage.Subscribe(x => resultViews[a].UpdateDisplayResultGame(x)).AddTo(gameObject);
+                Debug.Log("勝敗結果 購読開始 : " + resultModels[a].CurrentGridOwnerType.ToString());
 
                 resultModels[a].InitResultMessage();
             }
@@ -110,10 +115,10 @@ public class Presenter : MonoBehaviour
     }
 
     /// <summary>
-    /// ゲーム終了
+    /// リザルトの準備
     /// </summary>
     /// <param name="winner"></param>
-    public void GameUp(GridOwnerType winner) {
+    public void PrepareResult(GridOwnerType winner) {
 
         // 結果表示
         for (int i = 0; i < resultModels.Length; i++) {

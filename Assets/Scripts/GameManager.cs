@@ -9,22 +9,27 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour {
 
     [SerializeField]
+    private Transform gridSetTran;
+
+    [SerializeField]
+    private GridController gridPrefab;
+
+    [SerializeField]
+    private GridController[] grids = new GridController[9];
+
+    private int putCount;
+
+    [SerializeField]
+    private bool isGameUp;
+
+
+    // mi
+
+    [SerializeField]
     private Text txtPlayerResult;
 
     [SerializeField]
     private Text txtOpponentResult;
-
-    [SerializeField]
-    private Transform gridSetTran;
-
-    [SerializeField]
-    private GridButton gridPrefab;
-
-    [SerializeField]
-    private GridButton[] grids = new GridButton[9];
-
-    [SerializeField]
-    private bool isGameUp;
 
     [SerializeField]
     private Button btnRestart;
@@ -44,7 +49,6 @@ public class GameManager : MonoBehaviour {
     [SerializeField]
     private Text txtInfo;
 
-    private int putCount;
     private int gridCount = 9;
 
 
@@ -68,7 +72,7 @@ public class GameManager : MonoBehaviour {
     /// ゲームの初期設定
     /// </summary>
     public void InitialSettings() {
-        grids = new GridButton[gridCount];
+        grids = new GridController[gridCount];
 
         // ボタンの文字の初期設定
         for (int i = 0; i < grids.Length; i++) {
@@ -103,6 +107,9 @@ public class GameManager : MonoBehaviour {
     /// Player がボタンをクリックした際の処理
     /// </summary>
     public void OnClickGrid(int no) {
+
+        Debug.Log($"クリック実行 : Grid の通し番号 : { no }");
+
         if (isGameUp) {
             return;
         }
@@ -112,13 +119,16 @@ public class GameManager : MonoBehaviour {
         // オーナーシンボル(プレイヤーは○印)が置けるか確認
         if (grids[no].CurrentGridOwnerType == GridOwnerType.None) {
 
+            putCount++;
+
+            //Debug.Log(no + " 番目の Grid に〇印をつける");
+
+
             // インフォ表示をリセット
             txtInfo.text = "";
 
             // ○をセット
             SetOwnerTypeOnGrid(grids[no], GridOwnerType.Player);
-
-            putCount++;
 
             // 勝負付かず引き分け
             if (putCount >= 5 && !isGameUp) {
@@ -129,7 +139,8 @@ public class GameManager : MonoBehaviour {
             // 敵の順番
             PutOpponentGrid();
         } else {
-            txtInfo.text = "そこには配置出来ません。";
+            Debug.Log("そこには配置出来ません。");
+            //txtInfo.text = "そこには配置出来ません。";
         }
     }
 
@@ -138,7 +149,7 @@ public class GameManager : MonoBehaviour {
     /// </summary>
     /// <param name="targetGrid"></param>
     /// <param name="setOwnerType"></param>
-    private void SetOwnerTypeOnGrid(GridButton targetGrid, GridOwnerType setOwnerType) {
+    private void SetOwnerTypeOnGrid(GridController targetGrid, GridOwnerType setOwnerType) {
 
         targetGrid.UpdateGridData(setOwnerType, setOwnerType == GridOwnerType.Player ? "〇" : "×");
 
@@ -248,6 +259,8 @@ public class GameManager : MonoBehaviour {
     /// </summary>
     /// <param name="winner"></param>
     private void ShowResult(GridOwnerType winner) {
+
+        Debug.Log("勝者 : " + winner);
 
         isGameUp = true;
         btnRestart.interactable = true;
